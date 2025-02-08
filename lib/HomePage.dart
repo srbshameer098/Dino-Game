@@ -13,8 +13,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double dinoX = -0.0005;
   double dinoY= -0.5;
-  double dinoWidth = 0.2;
-  double dinoHeight = 0.2;
+  double dinoWidth = 0.00002;
+  double dinoHeight = 0.00002;
 
   double barrierX = 1.2;
   double barrierWidth = 0.1;
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   int score = 0;
   int highscore = 0;
   bool dinoPassedBarrier = false;
-  double speed = 0.05;
+  double speed = 0.01;
 
   final AudioPlayer jumpSound = AudioPlayer();
   final AudioPlayer collisionSound = AudioPlayer();
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
 
               left: MediaQuery.of(context).size.width * dinoX,
               top: MediaQuery.of(context).size.height * dinoY,
-              child: Image.asset("assets/dino-game.png"),
+              child: Image.asset("assets/dino.png",width: 100,height: 100,),
             ),
             Positioned(
               left: MediaQuery.of(context).size.width * barrierX,
