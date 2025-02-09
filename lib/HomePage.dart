@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double dinoX = -0.0005;
+  double dinoX = -0.005;
   double dinoY= -0.5;
   double dinoWidth = 0.00002;
   double dinoHeight = 0.00002;
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   int score = 0;
   int highscore = 0;
   bool dinoPassedBarrier = false;
-  double speed = 0.01;
+  double speed = 0.05;
 
   final AudioPlayer jumpSound = AudioPlayer();
   final AudioPlayer collisionSound = AudioPlayer();
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
 
       if (barrierX < -1.2) {
         barrierX = 1.2;
-        barrierHeight = 0.3 + Random().nextDouble() * 0.4;
+        barrierHeight = 0.4 + Random().nextDouble() * 0.4;
         dinoPassedBarrier = false;
         score++;
         if (score > highscore) {
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
       if (detectCollision()) {
         gameOver = true;
-        collisionSound.play(AssetSource("collision.mp3"));
+        collisionSound.play(AssetSource("game-over.mp3"));
         timer.cancel();
       }
     });
@@ -67,15 +67,15 @@ class _HomePageState extends State<HomePage> {
   bool detectCollision() {
     return (dinoX + dinoWidth > barrierX &&
         dinoX < barrierX + barrierWidth &&
-        dinoY + dinoHeight > 1 - barrierHeight);
+        dinoY + dinoHeight > 0.9 - barrierHeight);
   }
 
   void jump() {
     midJump = true;
     time = 0.00005;
-    jumpSound.play(AssetSource("jump.mp3"));
+    jumpSound.play(AssetSource("jump-up.mp3"));
     Timer.periodic(Duration(milliseconds: 5), (timer) {
-      height = -gravity / 2 * time * time + velocity * time;
+      height = -gravity / 1.65 * time * time + velocity * time;
       setState(() {
         if (1 - height > 1) {
           dinoY = 0.5;
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       gameOver = false;
       gameHasStarted = false;
-      dinoX =  -0.0005;
+      dinoX =  -0.005;
       dinoY = -0.5;
       time = 0; // Reset jump physics
       midJump = false; // Ensure it's not stuck in a jump
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
 
               left: MediaQuery.of(context).size.width * dinoX,
               top: MediaQuery.of(context).size.height * dinoY,
-              child: Image.asset("assets/dino.png",width: 100,height: 100,),
+              child: Image.asset("assets/dino00.png",width: 80,height: 80,),
             ),
             Positioned(
               left: MediaQuery.of(context).size.width * barrierX,
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 20,
+                  height: 30,
                   color: Colors.green,
                 ),
               ),
